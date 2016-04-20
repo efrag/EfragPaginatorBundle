@@ -1,0 +1,8 @@
+framework:
+    secret:             EfragPaginatorSecretSecret
+    router:             { resource: "%kernel.root_dir%/config/routing.yml" }
+    form:               false
+    csrf_protection:    false
+
+efrag_paginator:
+    perPage: 15

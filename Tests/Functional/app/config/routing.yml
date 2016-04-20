@@ -1,0 +1,9 @@
+app_search:
+    pattern:    /object/search
+    methods:    [GET]
+
+app_search_params:
+    pattern:    /object/{type}/search
+    methods:    [GET]
+    requirements:
+        type: foo|bar
