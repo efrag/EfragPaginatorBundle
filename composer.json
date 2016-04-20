@@ -1,0 +1,31 @@
+{
+    "name": "efrag/paginator-bundle",
+    "description": "This bundle creates a paginator service",
+    "keywords": [],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Eleni Fragkiadaki",
+            "email": "eleni.fra@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/symfony": "~2.8",
+        "symfony/framework-bundle": "~2.8"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.3.*",
+        "matthiasnoback/symfony-config-test": "^1.4"
+    },
+    "autoload": {
+        "psr-0": { "Efrag\\Bundle\\PaginatorBundle": "" }
+    },
+    "target-dir": "Efrag/Bundle/PaginatorBundle",
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
