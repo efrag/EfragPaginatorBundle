@@ -191,7 +191,7 @@ class Paginator
     {
         $currentVisible = array();
 
-        if ($totalPages > 15) {
+        if ($totalPages > 8) {
             $currentVisible = array($current);
 
             // Find the pages to add links to from the beginning of our page numbers
