@@ -10,8 +10,7 @@ project.
 Configuration
 -------------
 
-There is currently only one configuration option available for this bundle which is the default number of results per
- page.
+There is currently only one configuration option available for this bundle which is the default number of results per page.
 
 .. code-block:: yaml
 
