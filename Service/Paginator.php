@@ -111,16 +111,34 @@ class Paginator
     }
 
     /**
+     * Helper method that does a basic check to verify that the basic attributes have been set. The route parameters can
+     * be empty if the named route has no parameters, and the total number of results per page can be set from the
+     * default value. So the parameters that should be set by the user are the named route and the total number of
+     * results.
+     *
+     * @return bool
+     */
+    protected function isInitialized()
+    {
+        return (isset($this->routePath) && isset($this->total));
+    }
+
+    /**
      * The main method of this class. It returns an array of the links for the current result set
      *
      * @param int $page
-     *
      * @return array
+     *
+     * @throws \Exception
      */
     public function getLinks($page = 1)
     {
         if (!is_integer($page)) {
             throw new \InvalidArgumentException('The current page needs to be an integer value');
+        }
+
+        if (!$this->isInitialized()) {
+            throw new \Exception('The class is not properly initialized');
         }
 
         $page = abs((int) $page);
@@ -247,7 +265,7 @@ class Paginator
 
     /**
      * Return the array of links when the total number of results exceeds the number of results displayed per page
-     * 
+     *
      * @param integer $totalPages
      * @param integer $current
      * @return array

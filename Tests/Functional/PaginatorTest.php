@@ -211,4 +211,20 @@ class PaginatorTest extends WebTestCase
             $pageText += 1;
         }
     }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testRoutePathIsInitialized()
+    {
+        $links = $this->paginator->setTotal(90)->getLinks(1);
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testTotalIsInitialized()
+    {
+        $links = $this->paginator->setRoutePath('app_search')->getLinks(1);
+    }
 }
