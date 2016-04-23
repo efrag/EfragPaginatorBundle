@@ -1,6 +1,6 @@
 {
     "name": "efrag/paginator-bundle",
-    "description": "This bundle creates a paginator service",
+    "description": "This bundle creates a paginator service for the Symfony framework",
     "keywords": [],
     "type": "symfony-bundle",
     "license": "MIT",
@@ -27,7 +27,7 @@
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "1.1.x-dev"
         }
     }
 }
