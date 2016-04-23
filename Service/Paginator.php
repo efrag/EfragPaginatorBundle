@@ -35,6 +35,11 @@ class Paginator
      */
     protected $total;
 
+    /**
+     * Paginator constructor.
+     * @param RouterInterface $router
+     * @param integer $perPage
+     */
     public function __construct(RouterInterface $router, $perPage)
     {
         $this->router = $router;
@@ -132,6 +137,9 @@ class Paginator
     }
 
     /**
+     * Method that returns the links in case the total number of results and the per page results combination only
+     * produces a single result page
+     *
      * @return array
      */
     protected function onePageLinks()
@@ -156,9 +164,9 @@ class Paginator
     }
 
     /**
-     * @param $totalPages
-     * @param $current
-     * @param null $type
+     * @param integer $totalPages
+     * @param integer $current
+     * @param string|null $type
      * @return array
      */
     protected function setLinkParameters($totalPages, $current, $type = null)
@@ -183,8 +191,11 @@ class Paginator
     }
 
     /**
-     * @param $totalPages
-     * @param $current
+     * Method to find the visible pages in case the total number of pages exceeds the number 9. The goal is to display
+     * the Previous and Next links at all times, along with the current page plus 4 pages on either side (if possible).
+     *
+     * @param integer $totalPages
+     * @param integer $current
      * @return array
      */
     protected function findVisiblePages($totalPages, $current)
@@ -234,6 +245,13 @@ class Paginator
         return $currentVisible;
     }
 
+    /**
+     * Return the array of links when the total number of results exceeds the number of results displayed per page
+     * 
+     * @param integer $totalPages
+     * @param integer $current
+     * @return array
+     */
     protected function multiPageLinks($totalPages, $current)
     {
         $links = array();
