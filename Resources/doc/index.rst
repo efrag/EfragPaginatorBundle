@@ -26,6 +26,7 @@ Usage
 The bundle registers a service called ``efrag_paginator``. The service can be used from a controller class like:
 
 .. code-block:: php
+
     $links = $this->get('efrag_paginator')
         ->setPerPage(10) // to override the default per page number of results
         ->setTotal(20) // the total number of results returned by a search
