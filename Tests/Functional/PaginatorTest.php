@@ -227,4 +227,61 @@ class PaginatorTest extends WebTestCase
     {
         $links = $this->paginator->setRoutePath('app_search')->getLinks(1);
     }
+
+    public function validSortCases()
+    {
+        $cases = [];
+
+        $base = '/object/search?page=1&pp=10&sort=';
+
+        $cases[] = ['app_search', ['id' => 'asc', 'name' => 'desc'], $base . urlencode('id:asc,name:desc')];
+        $cases[] = ['app_search', ['id' => 'Asc', 'name' => 'DESC'], $base . urlencode('id:asc,name:desc')];
+
+        return $cases;
+    }
+
+    public function invalidSortCases()
+    {
+        $cases = [];
+
+        $base = '/object/search?page=1&pp=10&sort=';
+
+        $cases[] = ['app_search', ['id' => '', 'name' => ''], $base];
+        $cases[] = ['app_search', ['id' => 'test1', 'name' => 'test2'], $base];
+        $cases[] = ['app_search', ['id' => 'test1', 'name' => 'asc'], $base . urlencode('name:asc')];
+
+        return $cases;
+    }
+
+    /**
+     * @dataProvider validSortCases
+     *
+     * @param string $route The named route to be used for generating the links
+     * @param array $sort The array with the sorting parameters for this search
+     * @param string $expectedUri The expected uri for the first page of results
+     *
+     * @throws \Exception
+     */
+    public function testValidSortingParameter($route, $sort, $expectedUri)
+    {
+        $links = $this->paginator->setRoutePath($route)->setTotal(100)->setPerPage(10)->setSort($sort)->getLinks();
+
+        $this->assertEquals($expectedUri, $links['l0']['location'], 'The sorting has not been added correctly');
+    }
+
+    /**
+     * @dataProvider validSortCases
+     *
+     * @param string $route The named route to be used for generating the links
+     * @param array $sort The array with the sorting parameters for this search
+     * @param string $expectedUri The expected uri for the first page of results
+     *
+     * @throws \Exception
+     */
+    public function testInvalidSortingParameter($route, $sort, $expectedUri)
+    {
+        $links = $this->paginator->setRoutePath($route)->setTotal(100)->setPerPage(10)->setSort($sort)->getLinks();
+
+        $this->assertEquals($expectedUri, $links['l0']['location'], 'The sorting has not been added correctly');
+    }
 }

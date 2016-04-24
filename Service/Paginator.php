@@ -36,6 +36,11 @@ class Paginator
     protected $total;
 
     /**
+     * @var string
+     */
+    protected $sort;
+
+    /**
      * Paginator constructor.
      * @param RouterInterface $router
      * @param integer $perPage
@@ -106,6 +111,32 @@ class Paginator
         }
 
         $this->perPage = $perPage;
+
+        return $this;
+    }
+
+    /**
+     * This method accepts an array of field => order elements based on which the sorting is applied. The format of this
+     * array is expected to be similar to ['id' => 'asc', 'name' => 'desc']. The sort request parameter is then set to
+     * id:asc,name:desc.
+     *
+     * @param array $sort An array of the fields we want to sort
+     *
+     * @return $this
+     */
+    public function setSort(array $sort)
+    {
+        $sortFields = [];
+
+        if (!empty($sort)) {
+            foreach ($sort as $field => $order) {
+                if (in_array(strtolower($order), ['asc', 'desc'])) {
+                    $sortFields[] = $field . ':' . strtolower($order);
+                }
+            }
+        }
+
+        $this->sort = implode(',', $sortFields);
 
         return $this;
     }
@@ -204,6 +235,10 @@ class Paginator
         }
 
         $parameters['pp'] = $this->perPage;
+
+        if (!empty($this->sort)) {
+            $parameters['sort'] = $this->sort;
+        }
 
         return $parameters;
     }
