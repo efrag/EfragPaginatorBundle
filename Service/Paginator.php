@@ -344,4 +344,41 @@ class Paginator
 
         return $links;
     }
+
+    /**
+     * Method to return the number of visible entries that we are currently viewing. The output of this method should
+     * be an array with the following format:
+     *  array(
+     *      'first' => 21,
+     *      'last'  => 30,
+     *      'total' => 500
+     *  )
+     * which should be translated as Showing 21-30 of 500 records
+     *
+     * @param integer $page The current page that the user is viewing
+     *
+     * @return array
+     */
+    public function getVisibleEntries($page = 1)
+    {
+        if (!is_numeric($page)) {
+            throw new \InvalidArgumentException('The page number should be numeric');
+        }
+
+        $page = (int) $page;
+
+        $visibleEntries = [];
+
+        $visibleEntries['first'] = (($page-1) * $this->perPage) + 1;
+
+        if ($this->total > $page * $this->perPage) {
+            $visibleEntries['last'] = $page * $this->perPage;
+        } else {
+            $visibleEntries['last'] = $this->total;
+        }
+
+        $visibleEntries['total'] = $this->total;
+
+        return $visibleEntries;
+    }
 }
