@@ -284,4 +284,34 @@ class PaginatorTest extends WebTestCase
 
         $this->assertEquals($expectedUri, $links['l0']['location'], 'The sorting has not been added correctly');
     }
+
+    public function visibleEntriesCases()
+    {
+        $cases = [];
+
+        $cases[] = ['app_search', 10, 100, 2, 11, 20, 100];
+        $cases[] = ['app_search', 10, 95, 10, 91, 95, 95];
+
+        return $cases;
+    }
+
+    /**
+     * @dataProvider visibleEntriesCases
+     */
+    public function testVisibleEntries($route, $perPage, $count, $page, $first, $last, $total)
+    {
+        $visibleEntries = $this->paginator
+            ->setRoutePath($route)
+            ->setTotal($count)
+            ->setPerPage($perPage)
+            ->getVisibleEntries($page);
+
+        $this->assertArrayHasKey('first', $visibleEntries, 'Missing "first" key from visibleEntries array');
+        $this->assertArrayHasKey('last', $visibleEntries, 'Missing "last" key from visibleEntries array');
+        $this->assertArrayHasKey('total', $visibleEntries, 'Missing "total" key from visibleEntries array');
+
+        $this->assertEquals($first, $visibleEntries['first']);
+        $this->assertEquals($last, $visibleEntries['last']);
+        $this->assertEquals($total, $visibleEntries['total']);
+    }
 }
