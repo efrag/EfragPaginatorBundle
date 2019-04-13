@@ -2,3 +2,4 @@ vendor
 composer.lock
 .idea/*
 Tests/Functional/app/cache/*
+.phpunit.result.cache

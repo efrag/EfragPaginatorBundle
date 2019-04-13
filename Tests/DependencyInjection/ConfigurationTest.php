@@ -4,12 +4,13 @@ namespace Efrag\Bundle\PaginatorBundle\Tests\DependencyInjection;
 
 use Efrag\Bundle\PaginatorBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class ConfigurationTest
  * @package Efrag\Bundle\PaginatorBundle\Tests\DependencyInjection
  */
-class ConfigurationTest extends \PHPUnit_Framework_TestCase
+class ConfigurationTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 

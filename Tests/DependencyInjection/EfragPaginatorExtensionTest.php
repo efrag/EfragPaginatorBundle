@@ -5,7 +5,7 @@ use Efrag\Bundle\PaginatorBundle\DependencyInjection\EfragPaginatorExtension;
 
 class EfragPaginatorExtensionTest extends AbstractExtensionTestCase
 {
-    protected function getContainerExtensions()
+    protected function getContainerExtensions() : array
     {
         return [
             new EfragPaginatorExtension()

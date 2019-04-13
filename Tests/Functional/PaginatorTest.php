@@ -15,7 +15,7 @@ class PaginatorTest extends WebTestCase
      */
     protected $paginator;
 
-    public function setUp()
+    public function setUp(): void
     {
         $client = $this->createClient();
         $this->paginator = $client->getContainer()->get('efrag_paginator');
@@ -35,34 +35,38 @@ class PaginatorTest extends WebTestCase
 
     /**
      * @dataProvider invalidIntegerSettings
-     * @expectedException \InvalidArgumentException
      *
      * @param $perPage
      */
     public function testInvalidPerPageSettingsThrowException($perPage)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->paginator->setPerPage($perPage);
     }
 
     /**
      * @dataProvider invalidIntegerSettings
-     * @expectedException \InvalidArgumentException
      *
      * @param $total
      */
     public function testInvalidTotalSettingsThrowException($total)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->paginator->setTotal($total);
     }
 
     /**
      * @dataProvider invalidIntegerSettings
-     * @expectedException \InvalidArgumentException
-     *
      * @param $page
+     *
+     * @throws \Exception
      */
     public function testInvalidPageRequestThrowsException($page)
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $links = $this->paginator->setRoutePath('app_search')->setPerPage(10)->setTotal(20)->getLinks($page);
     }
 
@@ -91,6 +95,7 @@ class PaginatorTest extends WebTestCase
      * @param integer $total The total number of results returned
      * @param integer $curPage The current page number
      * @param string $outcome The expected URI
+     * @throws \Exception
      */
     public function testPreviousLink($route, array $parameters, $perPage, $total, $curPage, $outcome)
     {
@@ -128,6 +133,7 @@ class PaginatorTest extends WebTestCase
      * @param integer $total The total number of results returned
      * @param integer $curPage The current page number
      * @param string $outcome The expected URI
+     * @throws \Exception
      */
     public function testNextLink($route, $parameters, $perPage, $total, $curPage, $outcome)
     {
@@ -164,6 +170,7 @@ class PaginatorTest extends WebTestCase
      * @param integer $curPage The current page number
      * @param integer $numElements The number of elements the outcome $links array is expected to have
      * @param string $activeKey The key of the $links array that contains the link that is currently active
+     * @throws \Exception
      */
     public function testActiveLink($route, $parameters, $perPage, $total, $curPage, $numElements, $activeKey)
     {
@@ -212,19 +219,17 @@ class PaginatorTest extends WebTestCase
         }
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testRoutePathIsInitialized()
     {
+        $this->expectException(\Exception::class);
+
         $links = $this->paginator->setTotal(90)->getLinks(1);
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testTotalIsInitialized()
     {
+        $this->expectException(\Exception::class);
+
         $links = $this->paginator->setRoutePath('app_search')->getLinks(1);
     }
 
