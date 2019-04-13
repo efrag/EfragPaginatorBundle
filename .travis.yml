@@ -1,17 +1,14 @@
 language: php
 
 php:
-  - 5.6
-  - 7.0
+  - '5.6'
+  - '7.0'
   - hhvm
 
 matrix:
   allow_failures:
     - php: hhvm
     - php: hhvm-nightly
-
-before_install:
-  - composer self-update
 
 install:
   - travis_retry composer install --no-interaction --prefer-source
