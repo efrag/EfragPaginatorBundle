@@ -2,3 +2,4 @@ services:
     efrag_paginator:
         class:      Efrag\Bundle\PaginatorBundle\Service\Paginator
         arguments:  ["@router", '%efrag_paginator.perPage%']
+        public:     true
